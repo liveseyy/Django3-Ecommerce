@@ -3,17 +3,17 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
+from PIL import Image
+
 User = get_user_model()
 
 
-# ****************
-# 1 Category
-# 2 Product
-# 3 CartProduct
-# 4 Cart
-# 5 Order
-# ****************
-# 6 Customer
+class MinResolutionErrorException(Exception):
+    pass
+
+
+class MaxResolutionErrorException(Exception):
+    pass
 
 
 class LatestProductsManager:
@@ -50,12 +50,28 @@ class Category(models.Model):
 
 class Product(models.Model):
     """Товар"""
+
+    MIN_RESOLUTION = (400, 400)
+    MAX_RESOLUTION = (800, 800)
+    MAX_IMAGE_SIZE = 3145728    # 3 MBytes
+
     category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.CASCADE)
     title = models.CharField(max_length=255, verbose_name="Наименование")
     slug = models.SlugField(unique=True)
     image = models.ImageField(verbose_name="Изображение")
     description = models.TextField(verbose_name="Описание", null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name="Цена")
+
+    def save(self, *args, **kwargs):
+        image = self.image
+        img = Image.open(image)
+        min_width, min_height = self.MIN_RESOLUTION
+        max_width, max_height = self.MAX_RESOLUTION
+        if img.width < min_width or img.height < min_height:
+            raise MinResolutionErrorException('Разрешение изображения меньше минимального!')
+        if img.width > max_width or img.height > max_height:
+            raise MaxResolutionErrorException('Разрешение изображения больше максимального!')
+        return image
 
     def __str__(self):
         return self.title
