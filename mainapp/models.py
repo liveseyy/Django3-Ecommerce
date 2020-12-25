@@ -73,7 +73,7 @@ class Product(models.Model):
 class Notebook(Product):
     diagonal = models.CharField(max_length=255, verbose_name="Диагональ")
     display_type = models.CharField(max_length=255, verbose_name="Тип дисплея")
-    proccessor_freq = models.CharField(max_length=255, verbose_name="Частота процессора")
+    processor_freq = models.CharField(max_length=255, verbose_name="Частота процессора")
     ram = models.CharField(max_length=255, verbose_name="Оперативная память")
     video = models.CharField(max_length=255, verbose_name="Видеокарта")
     time_without_charge = models.CharField(max_length=255, verbose_name="Время работы аккумулятора")
