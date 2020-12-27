@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load specifications %}
-{% block content %}
 
+{% block content %}
     <nav aria-label="breadcrumb" class="mt-3">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
@@ -26,5 +26,4 @@
     {{ product|product_spec }}
 
 </div>
-
 {% endblock content %}
