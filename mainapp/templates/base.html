@@ -32,19 +32,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="{% url 'cart' %}">Корзина <span class="badge badge-pill badge-danger">0</span></a>
           </li>
         </ul>
       </div>
@@ -101,13 +90,13 @@
           {% for product in products %}
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="{{ product.get_absolute_url }}"><img class="card-img-top" src="{{ product.image.url }}" alt=""></a>
+                <a href="{{ product.get_absolute_url }}"><img class="card-img-top" style="max-height: 250px;" src="{{ product.image.url }}" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
                     <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                   </h4>
                   <h5>{{ product.price }} руб</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                  <p class="card-text"></p>
                 </div>
                 <div class="card-footer">
                   <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -116,23 +105,6 @@
             </div>
             {% endfor %}
           </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Six</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
         </div>
         <!-- /.row -->
       {% endblock content %}
