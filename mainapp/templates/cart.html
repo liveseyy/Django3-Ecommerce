@@ -28,10 +28,10 @@
       {% for item in cart.products.all %}
           <tr>
             <th scope="row">{{ item.content_object.title }}</th>
-            <td class="w-25"><img src="{{ item.content_object.image.url }}" class="img-fluid" alt=""></td>
+            <td class="w-25"><img src="{{ item.product.image.url }}" class="img-fluid" alt=""></td>
             <td>{{ item.content_object.price }} руб.</td>
             <td>
-              <form action="{% url 'change_qty' item.content_object.get_model_name item.content_object.slug %}" method="post">
+              <form action="{% url 'change_qty' item.product.slug %}" method="post">
                 {% csrf_token %}
                 <input type="number" value="{{ item.qty }}" name="qty" class="form-control" min="1" style="width: 70px;">
                 <br>
@@ -40,7 +40,7 @@
             </td>
             <td>{{ item.final_price }}</td>
             <td>
-              <a href="{% url 'delete_from_cart' item.content_object.get_model_name item.content_object.slug %}"><button class="btn btn-danger">Удалить</button></a>
+              <a href="{% url 'delete_from_cart' item.product.slug %}"><button class="btn btn-danger">Удалить</button></a>
             </td>
           </tr>
       {% endfor %}
